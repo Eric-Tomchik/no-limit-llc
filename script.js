@@ -64,16 +64,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// --- Calendly integration ---
-// Replace YOUR_CALENDLY_URL with your actual Calendly link
+// --- Cal.com integration ---
 function openCalendly(e) {
     e.preventDefault();
-    // If Calendly widget is loaded, use popup; otherwise open in new tab
-    if (typeof Calendly !== 'undefined') {
-        Calendly.initPopupWidget({ url: 'https://calendly.com/YOUR_CALENDLY_URL' });
-    } else {
-        window.open('https://calendly.com/YOUR_CALENDLY_URL', '_blank');
-    }
+    window.open('https://cal.com/angel-molina-hdwyb9/15min?user=angel-molina-hdwyb9&overlayCalendar=true', '_blank');
 }
 
 // --- Phone number formatting ---
