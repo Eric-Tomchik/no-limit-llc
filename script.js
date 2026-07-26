@@ -89,6 +89,8 @@ if (phoneInput) {
 }
 
 // --- Form submission enhancement ---
+const DASHBOARD_API = 'https://usable-elk-983.convex.site/api/submit';
+
 const form = document.getElementById('applicationForm');
 if (form) {
     form.addEventListener('submit', (e) => {
@@ -101,6 +103,23 @@ if (form) {
         `;
         btn.style.pointerEvents = 'none';
         btn.style.opacity = '0.7';
+
+        // Send to admin dashboard in the background (fire and forget)
+        try {
+            const formData = new FormData(form);
+            fetch(DASHBOARD_API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    firstName: formData.get('First Name') || '',
+                    lastName: formData.get('Last Name') || '',
+                    email: formData.get('Email') || '',
+                    phone: formData.get('Phone') || '',
+                    experience: formData.get('Experience') || '',
+                    message: formData.get('Message') || '',
+                }),
+            }).catch(() => {}); // Silent fail — FormSubmit email is the fallback
+        } catch (_) {}
     });
 }
 
