@@ -138,10 +138,12 @@ if (phoneInput) {
 
 // --- Form submission enhancement ---
 const DASHBOARD_API = 'https://kindhearted-ibis-211.convex.site/api/submissions';
+const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/info@no-limit-llc.com';
 
 const form = document.getElementById('applicationForm');
 if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
         const btn = form.querySelector('button[type="submit"]');
         btn.innerHTML = `
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="spin">
@@ -152,24 +154,42 @@ if (form) {
         btn.style.pointerEvents = 'none';
         btn.style.opacity = '0.7';
 
-        // Send to admin dashboard in the background (keepalive survives page navigation)
-        try {
-            const formData = new FormData(form);
-            fetch(DASHBOARD_API, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                keepalive: true,
-                body: JSON.stringify({
-                    firstName: formData.get('First Name') || '',
-                    lastName: formData.get('Last Name') || '',
-                    email: formData.get('Email') || '',
-                    phone: formData.get('Phone') || '',
-                    salesExperience: formData.get('Sales Experience') || '',
-                    message: formData.get('Message') || '',
-                    agentReferral: formData.get('Agent Referral') || '',
-                }),
-            }).catch(() => {}); // Silent fail — FormSubmit email is the fallback
-        } catch (_) {}
+        const formData = new FormData(form);
+        const payload = {
+            firstName: formData.get('First Name') || '',
+            lastName: formData.get('Last Name') || '',
+            email: formData.get('Email') || '',
+            phone: formData.get('Phone') || '',
+            salesExperience: formData.get('Sales Experience') || '',
+            message: formData.get('Message') || '',
+            agentReferral: formData.get('Agent Referral') || '',
+        };
+
+        // Send to both dashboard and FormSubmit in parallel
+        const dashboardReq = fetch(DASHBOARD_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        }).catch(() => {});
+
+        const formSubmitReq = fetch(FORMSUBMIT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+                'First Name': payload.firstName,
+                'Last Name': payload.lastName,
+                'Email': payload.email,
+                'Phone': payload.phone,
+                'Sales Experience': payload.salesExperience,
+                'Message': payload.message,
+                'Agent Referral': payload.agentReferral,
+                '_subject': 'New Application - No Limit LLC',
+                '_template': 'box',
+            }),
+        }).catch(() => {});
+
+        await Promise.allSettled([dashboardReq, formSubmitReq]);
+        window.location.href = '/thank-you.html';
     });
 }
 
