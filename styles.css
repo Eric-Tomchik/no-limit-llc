@@ -165,6 +165,7 @@ body {
     overflow: hidden;
 }
 
+/* Main skyline image layer */
 .city-bg::before {
     content: '';
     position: absolute;
@@ -172,11 +173,24 @@ body {
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
-    opacity: 0.10;
+    opacity: 0.22;
     z-index: -1;
     pointer-events: none;
-    mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 85%);
-    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 85%);
+    mask-image: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 45%, transparent 80%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 45%, transparent 80%);
+}
+
+/* Subtle ambient glow behind the skyline */
+.city-bg::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 50%;
+    background: radial-gradient(ellipse at center bottom, rgba(0,212,255,0.06) 0%, transparent 70%);
+    z-index: -1;
+    pointer-events: none;
 }
 
 .city-bg-austin::before {
