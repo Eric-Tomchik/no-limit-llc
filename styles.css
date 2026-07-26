@@ -160,6 +160,37 @@ body {
     border-bottom: 1px solid var(--border);
 }
 
+/* --- City Skyline Backgrounds --- */
+.city-bg {
+    overflow: hidden;
+}
+
+.city-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    opacity: 0.10;
+    z-index: -1;
+    pointer-events: none;
+    mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 85%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, transparent 85%);
+}
+
+.city-bg-austin::before {
+    background-image: url('cities/austin-tx.jpg');
+}
+
+.city-bg-oc::before {
+    background-image: url('cities/orange-county-ca.jpg');
+}
+
+.city-bg-charlotte::before {
+    background-image: url('cities/charlotte-nc.jpg');
+}
+
 /* --- Typography --- */
 .section-header {
     text-align: center;
