@@ -588,32 +588,288 @@ body {
     color: var(--text-muted);
 }
 
-/* --- Brand Logos --- */
-.brand-logo {
-    height: 60px;
+/* --- Partners Logo Bar --- */
+.partners-bar {
+    padding: 48px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: rgba(0,0,0,0.3);
+}
+
+.partners-title {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    text-transform: uppercase;
+}
+
+.partners-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.partner-logo-pill {
+    background: rgba(255,255,255,0.95);
+    border-radius: 12px;
+    padding: 10px 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 16px;
-    opacity: 0.9;
-}
-
-.brand-logo img {
-    max-height: 60px;
-    max-width: 180px;
-    width: auto;
-    object-fit: contain;
-    filter: brightness(1.1);
+    height: 52px;
     transition: var(--transition);
 }
 
-.brand-card:hover .brand-logo {
-    opacity: 1;
+.partner-logo-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,212,255,0.15);
 }
 
-.brand-card:hover .brand-logo img {
-    filter: brightness(1.2);
-    transform: scale(1.05);
+.partner-logo-pill img {
+    max-height: 32px;
+    max-width: 120px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* --- Services Grid --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+}
+
+.service-card {
+    background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(123,97,255,0.05));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    transition: var(--transition);
+}
+
+.service-card:hover {
+    border-color: rgba(0,212,255,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,212,255,0.1);
+}
+
+.service-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(0,212,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.service-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--accent);
+}
+
+.service-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 12px;
+}
+
+.service-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* --- Company Section --- */
+.company-layout {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.company-description {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.company-description strong {
+    color: var(--text);
+}
+
+.company-description a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.company-description a:hover {
+    text-decoration: underline;
+}
+
+.company-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 40px;
+}
+
+.company-stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 20px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.company-stat-card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+}
+
+.company-stat-number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+}
+
+.company-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* --- Training & Growth Section --- */
+.training-layout {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.training-description {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 36px;
+}
+
+.training-points {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.training-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.training-point svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.training-point span {
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.7;
+}
+
+/* --- Team Section --- */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+}
+
+.team-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.team-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.team-photo, .team-photo-placeholder {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    overflow: hidden;
+    border: 3px solid var(--border);
+}
+
+.team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-photo-placeholder {
+    background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(123,97,255,0.15));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-initials {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.8;
+}
+
+.team-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 4px;
+}
+
+.team-title {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.team-bio {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
 }
 
 /* --- FAQ Section --- */
@@ -1078,7 +1334,12 @@ body {
     .about-grid,
     .benefits-grid { grid-template-columns: 1fr; }
 
-    .brands-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-grid { grid-template-columns: 1fr; }
+
+    .company-layout { grid-template-columns: 1fr; gap: 40px; }
+    .company-stats { grid-template-columns: 1fr 1fr; }
+
+    .team-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
 
     .form-row { grid-template-columns: 1fr; }
 
@@ -1091,10 +1352,20 @@ body {
         gap: 8px;
         text-align: center;
     }
+
+    .partner-logo-pill {
+        height: 44px;
+        padding: 8px 14px;
+    }
+
+    .partner-logo-pill img {
+        max-height: 26px;
+        max-width: 90px;
+    }
 }
 
 @media (max-width: 480px) {
-    .brands-grid { grid-template-columns: 1fr; }
     .hero-actions { flex-direction: column; }
     .hero-actions .btn { text-align: center; justify-content: center; }
+    .company-stats { grid-template-columns: 1fr; }
 }
