@@ -810,6 +810,7 @@ function openDetail(id) {
         </div>
         <div class="modal-section-label">Sales Experience</div>
         <div class="modal-field-value">${expLabel(s.salesExperience)}</div>
+        ${s.agentReferral ? `<div class="modal-section-label">Agent Referral</div><div class="modal-field-value">${esc(s.agentReferral)}</div>` : ''}
         ${s.message ? `<div class="modal-section-label">Message</div><div class="modal-field-value">${esc(s.message)}</div>` : ''}
         <div class="modal-section-label">Internal Notes</div>
         <textarea class="modal-notes" id="modal-notes" placeholder="Add notes about this recruit…" onblur="updateNotes('${s._id}')">${esc(s.notes)}</textarea>

@@ -152,12 +152,13 @@ if (form) {
         btn.style.pointerEvents = 'none';
         btn.style.opacity = '0.7';
 
-        // Send to admin dashboard in the background (fire and forget)
+        // Send to admin dashboard in the background (keepalive survives page navigation)
         try {
             const formData = new FormData(form);
             fetch(DASHBOARD_API, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                keepalive: true,
                 body: JSON.stringify({
                     firstName: formData.get('First Name') || '',
                     lastName: formData.get('Last Name') || '',
@@ -165,6 +166,7 @@ if (form) {
                     phone: formData.get('Phone') || '',
                     salesExperience: formData.get('Sales Experience') || '',
                     message: formData.get('Message') || '',
+                    agentReferral: formData.get('Agent Referral') || '',
                 }),
             }).catch(() => {}); // Silent fail — FormSubmit email is the fallback
         } catch (_) {}
