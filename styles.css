@@ -236,8 +236,8 @@ body {
 }
 
 .logo-icon {
-    width: 42px;
-    height: 21px;
+    height: 36px;
+    width: auto;
 }
 
 .logo-text {
@@ -469,17 +469,24 @@ body {
 .hero-visual {
     position: absolute;
     top: 50%;
-    right: -5%;
+    right: -2%;
     transform: translateY(-50%);
     width: 50%;
     max-width: 600px;
-    opacity: 0.12;
+    opacity: 0.15;
     pointer-events: none;
+    filter: blur(1px);
+    animation: heroFloat 12s ease-in-out infinite;
 }
 
-.infinity-anim {
+.hero-logo-img {
     width: 100%;
     height: auto;
+}
+
+@keyframes heroFloat {
+    0%, 100% { transform: translateY(-50%) scale(1); opacity: 0.15; }
+    50% { transform: translateY(-52%) scale(1.02); opacity: 0.2; }
 }
 
 @keyframes fadeInUp {
