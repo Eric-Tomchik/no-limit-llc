@@ -137,7 +137,7 @@ if (phoneInput) {
 }
 
 // --- Form submission enhancement ---
-const DASHBOARD_API = 'https://usable-elk-983.convex.site/api/submit';
+const DASHBOARD_API = 'https://kindhearted-ibis-211.convex.site/api/submissions';
 
 const form = document.getElementById('applicationForm');
 if (form) {
@@ -163,7 +163,7 @@ if (form) {
                     lastName: formData.get('Last Name') || '',
                     email: formData.get('Email') || '',
                     phone: formData.get('Phone') || '',
-                    experience: formData.get('Experience') || '',
+                    salesExperience: formData.get('Sales Experience') || '',
                     message: formData.get('Message') || '',
                 }),
             }).catch(() => {}); // Silent fail — FormSubmit email is the fallback
