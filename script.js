@@ -34,22 +34,33 @@ navLinks.querySelectorAll('.nav-link').forEach(link => {
 });
 
 // --- Scroll reveal animations ---
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -40px 0px'
-};
+const animatedEls = document.querySelectorAll('.about-card, .brand-card, .benefit-item, .apply-info, .apply-form-wrapper');
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
+if ('IntersectionObserver' in window) {
+    const observerOptions = {
+        threshold: 0.05,
+        rootMargin: '0px 0px -20px 0px'
+    };
 
-document.querySelectorAll('.about-card, .brand-card, .benefit-item, .apply-info, .apply-form-wrapper').forEach(el => {
-    observer.observe(el);
-});
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    animatedEls.forEach(el => observer.observe(el));
+
+    // Safety fallback: reveal any still-hidden elements after 4s
+    setTimeout(() => {
+        animatedEls.forEach(el => el.classList.add('visible'));
+    }, 4000);
+} else {
+    // No IntersectionObserver support — show everything immediately
+    animatedEls.forEach(el => el.classList.add('visible'));
+}
 
 // --- Smooth scroll for anchor links ---
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
