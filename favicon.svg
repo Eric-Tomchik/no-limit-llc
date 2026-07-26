@@ -1,0 +1,16 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fg" x1="0" y1="16" x2="32" y2="16" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00d4ff"/>
+      <stop offset="0.5" stop-color="#7b61ff"/>
+      <stop offset="1" stop-color="#00d4ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="6" fill="#0a0a14"/>
+  <g transform="translate(3, 8) scale(0.54)">
+    <path d="M14 12C14 8.13 10.87 5 7 5C3.13 5 0 8.13 0 12C0 15.87 3.13 19 7 19C10.87 19 14 15.87 14 12ZM7 16.5C4.52 16.5 2.5 14.48 2.5 12C2.5 9.52 4.52 7.5 7 7.5C9.48 7.5 11.5 9.52 11.5 12C11.5 14.48 9.48 16.5 7 16.5Z" fill="url(#fg)"/>
+    <path d="M48 12C48 8.13 44.87 5 41 5C37.13 5 34 8.13 34 12C34 15.87 37.13 19 41 19C44.87 19 48 15.87 48 12ZM41 16.5C38.52 16.5 36.5 14.48 36.5 12C36.5 9.52 38.52 7.5 41 7.5C43.48 7.5 45.5 9.52 45.5 12C45.5 14.48 43.48 16.5 41 16.5Z" fill="url(#fg)"/>
+    <path d="M7 5C10.87 5 14 8.13 14 12C14 15.87 17.13 19 21 19L27 19C30.87 19 34 15.87 34 12C34 8.13 37.13 5 41 5" stroke="url(#fg)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M41 19C37.13 19 34 15.87 34 12C34 8.13 30.87 5 27 5L21 5C17.13 5 14 8.13 14 12C14 15.87 10.87 19 7 19" stroke="url(#fg)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>
