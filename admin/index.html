@@ -6,6 +6,8 @@
     <title>Admin | No Limit Recruits</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png">
+    <link rel="apple-touch-icon" href="../favicon-192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -219,19 +221,67 @@
         .crop-slider::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); cursor: pointer; border: none; }
         .crop-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
 
-        /* ─── Responsive ─── */
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .mobile-header { display: flex !important; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); }
-            .main { padding: 20px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            table { font-size: 0.8rem; }
-            thead th, tbody td { padding: 10px 12px; }
-            .modal { padding: 20px; }
-            .settings-grid { grid-template-columns: 1fr; }
-        }
+        /* ─── Mobile ─── */
         .mobile-header { display: none; }
         .mobile-header .sidebar-brand { padding: 0; }
+        .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 49; }
+        .mobile-overlay.active { display: block; }
+        .hamburger { background: none; border: none; cursor: pointer; padding: 6px; display: flex; flex-direction: column; gap: 5px; }
+        .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s ease; }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        @media (max-width: 768px) {
+            .mobile-header { display: flex !important; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 40; }
+            .sidebar { position: fixed; left: 0; top: 0; bottom: 0; z-index: 50; transform: translateX(-100%); transition: transform 0.3s ease; width: 260px; background: #0a0a16; }
+            .sidebar.mobile-open { transform: translateX(0); }
+            .main { padding: 16px; }
+            .main h2 { font-size: 1.35rem; }
+
+            /* Stats */
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px; }
+            .stat-card { padding: 14px 16px; }
+            .stat-card .value { font-size: 1.4rem; }
+
+            /* Table */
+            .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            table { min-width: 600px; }
+            thead th, tbody td { padding: 10px 12px; font-size: 0.8rem; }
+
+            /* Toolbar */
+            .toolbar { gap: 8px; }
+            .search-input { min-width: unset; width: 100%; }
+            .filter-btn { padding: 6px 10px; font-size: 0.75rem; }
+
+            /* Settings */
+            .settings-grid { grid-template-columns: 1fr; gap: 16px; }
+            .settings-section { padding: 18px; }
+            .settings-section div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+            .profile-photo-area { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+            /* Modal */
+            .modal { padding: 20px; margin: 10px; max-height: calc(100vh - 20px); }
+            .modal-overlay { padding: 0; }
+
+            /* Crop */
+            .crop-modal { padding: 20px; margin: 10px; }
+
+            /* Recent */
+            .recent-card { padding: 16px 16px 4px; }
+            .recent-item { flex-wrap: wrap; gap: 8px; }
+            .recent-meta { width: 100%; display: flex; align-items: center; justify-content: space-between; flex-direction: row-reverse; }
+
+            /* Login */
+            .login-card { padding: 28px 20px; margin: 16px; }
+        }
+
+        @media (max-width: 400px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .stat-card .value { font-size: 1.2rem; }
+            .main { padding: 12px; }
+            .filter-btn { padding: 5px 8px; font-size: 0.7rem; }
+        }
     </style>
 </head>
 <body>
@@ -254,7 +304,11 @@
             <div class="sidebar-brand-icon">NL</div>
             <span>No Limit Recruits</span>
         </a>
+        <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </div>
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
 
     <aside class="sidebar">
         <a href="https://no-limit-llc.com" class="sidebar-brand" target="_blank" title="Back to main site">
@@ -772,6 +826,22 @@ function showPage(page) {
     document.getElementById('page-' + page).classList.add('active');
     document.querySelectorAll('.sidebar-link').forEach(el => el.classList.toggle('active', el.dataset.page === page));
     document.querySelectorAll('.sidebar-bottom-link[data-page]').forEach(el => el.classList.toggle('active', el.dataset.page === page));
+    closeMobileMenu();
+}
+
+// ─── Mobile menu ───
+function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('mobileOverlay');
+    const btn = document.getElementById('hamburgerBtn');
+    sidebar.classList.toggle('mobile-open');
+    overlay.classList.toggle('active');
+    btn.classList.toggle('open');
+}
+function closeMobileMenu() {
+    document.querySelector('.sidebar')?.classList.remove('mobile-open');
+    document.getElementById('mobileOverlay')?.classList.remove('active');
+    document.getElementById('hamburgerBtn')?.classList.remove('open');
 }
 function setFilter(f) {
     currentFilter = f;
