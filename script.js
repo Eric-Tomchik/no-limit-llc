@@ -76,10 +76,47 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // --- Cal.com integration ---
+let calEmbedLoaded = false;
+
 function openCalendly(e) {
     e.preventDefault();
-    window.open('https://cal.com/angel-molina-hdwyb9/15min?user=angel-molina-hdwyb9&overlayCalendar=true', '_blank');
+    // Switch to the calendar tab and scroll to apply section
+    const tabCalendar = document.getElementById('tabCalendar');
+    if (tabCalendar) {
+        tabCalendar.click();
+        document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
+
+// --- Apply section tab switching ---
+const applyTabs = document.querySelectorAll('.apply-tab');
+const applyPanels = document.querySelectorAll('.apply-panel');
+
+applyTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+
+        // Update active tab
+        applyTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Update active panel
+        applyPanels.forEach(p => p.classList.remove('active'));
+        const panel = document.getElementById(target === 'form' ? 'panelForm' : 'panelCalendar');
+        if (panel) panel.classList.add('active');
+
+        // Load Cal.com embed on first switch to calendar tab
+        if (target === 'calendar' && !calEmbedLoaded && window.Cal) {
+            Cal("inline", {
+                elementOrSelector: "#cal-inline-embed",
+                calLink: "angel-molina-hdwyb9/15min",
+                layout: "month_view",
+                config: { theme: "dark" }
+            });
+            calEmbedLoaded = true;
+        }
+    });
+});
 
 // --- Phone number formatting ---
 const phoneInput = document.getElementById('phone');
