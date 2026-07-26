@@ -764,7 +764,7 @@ function applyCrop() {
     adminProfile.profilePhoto = dataUrl;
     updatePhotoPreview(dataUrl);
     closeCrop();
-    showToast('Photo updated — click Save Profile to keep it');
+    saveProfile();
 }
 
 function closeCrop() {
@@ -775,6 +775,7 @@ function removePhoto() {
     adminProfile.profilePhoto = '';
     updatePhotoPreview('');
     document.getElementById('photoFileInput').value = '';
+    saveProfile();
 }
 function updatePhotoPreview(dataUrl) {
     const el = document.getElementById('profilePhotoPreview');
