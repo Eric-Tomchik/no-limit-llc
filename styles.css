@@ -798,7 +798,7 @@ body {
 /* --- Team Section --- */
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 32px;
     margin-top: 48px;
 }
@@ -1279,6 +1279,7 @@ body {
 @media (max-width: 1024px) {
     .about-grid { grid-template-columns: repeat(2, 1fr); }
     .brands-grid { grid-template-columns: repeat(2, 1fr); }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
     .apply-layout { grid-template-columns: 1fr; gap: 40px; }
     .footer-content { grid-template-columns: 1fr 1fr; gap: 32px; }
 }
