@@ -150,6 +150,10 @@ body {
     z-index: 1;
 }
 
+.section-first {
+    padding-top: 140px; /* Account for fixed navbar */
+}
+
 .section-dark {
     background: rgba(255,255,255,0.01);
     border-top: 1px solid var(--border);
