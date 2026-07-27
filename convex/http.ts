@@ -271,4 +271,76 @@ http.route({
   }),
 });
 
+// ─── Cal.com Webhook: Booking Created/Rescheduled ───
+http.route({
+  path: "/api/cal-webhook",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    try {
+      const body = await request.json();
+      const payload = body.payload || body;
+
+      // Extract booking data from Cal.com webhook
+      const bookingUid = payload.uid || payload.bookingUid || "";
+      if (!bookingUid) {
+        return corsResponse({ success: false, error: "No booking UID" }, 400);
+      }
+
+      const attendees = payload.attendees || [];
+      const firstAttendee = attendees[0] || {};
+
+      const startTime = payload.startTime
+        ? new Date(payload.startTime).getTime()
+        : 0;
+      const endTime = payload.endTime
+        ? new Date(payload.endTime).getTime()
+        : 0;
+
+      // Extract Zoom URL from location or metadata
+      const zoomUrl =
+        payload.metadata?.videoCallUrl ||
+        payload.location ||
+        payload.meetingUrl ||
+        "";
+
+      const zoomMeetingId = zoomUrl
+        ? (zoomUrl.match(/\/j\/(\d+)/)?.[1] || "")
+        : "";
+
+      await ctx.runMutation(api.interviews.upsert, {
+        bookingUid,
+        applicantEmail: firstAttendee.email || "",
+        applicantName: firstAttendee.name || "",
+        startTime,
+        endTime,
+        zoomJoinUrl: typeof zoomUrl === "string" ? zoomUrl : "",
+        zoomMeetingId,
+        status:
+          body.triggerEvent === "BOOKING_CANCELLED" ? "cancelled" : "scheduled",
+        calEventTypeId: payload.eventTypeId
+          ? Number(payload.eventTypeId)
+          : undefined,
+        attendees: JSON.stringify(
+          attendees.map((a: any) => ({
+            name: a.name || "",
+            email: a.email || "",
+          }))
+        ),
+      });
+
+      return corsResponse({ success: true });
+    } catch (e: any) {
+      return corsResponse({ error: e.message }, 500);
+    }
+  }),
+});
+
+http.route({
+  path: "/api/cal-webhook",
+  method: "OPTIONS",
+  handler: httpAction(async () => {
+    return new Response(null, { status: 204, headers: corsHeaders });
+  }),
+});
+
 export default http;
