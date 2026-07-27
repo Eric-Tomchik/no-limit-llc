@@ -427,6 +427,26 @@ body {
     width: 100%;
 }
 
+.hero-cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 32px;
+    animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+@media (max-width: 600px) {
+    .hero-cta-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .hero-cta-row .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 .hero-badge {
     display: inline-flex;
     align-items: center;

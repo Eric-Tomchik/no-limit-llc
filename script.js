@@ -88,6 +88,16 @@ function openCalendly(e) {
     }
 }
 
+function openCalendlyModal(e) {
+    e.preventDefault();
+    if (window.Cal) {
+        Cal("modal", {
+            calLink: "angel-molina-hdwyb9/15min",
+            config: { theme: "dark", layout: "month_view" }
+        });
+    }
+}
+
 // --- Apply section tab switching ---
 const applyTabs = document.querySelectorAll('.apply-tab');
 const applyPanels = document.querySelectorAll('.apply-panel');
