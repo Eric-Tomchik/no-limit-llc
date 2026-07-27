@@ -1515,6 +1515,9 @@ body {
     border: 1px solid var(--border);
     border-radius: var(--radius);
     transition: var(--transition);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
 }
 
 .video-feature:hover {
