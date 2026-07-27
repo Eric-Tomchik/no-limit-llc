@@ -1316,9 +1316,15 @@ body {
 
 .footer-content {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    grid-template-columns: 1.5fr 3fr;
     gap: 40px;
     margin-bottom: 48px;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
 }
 
 .footer-tagline {
@@ -1416,7 +1422,8 @@ body {
     .brands-grid { grid-template-columns: repeat(2, 1fr); }
     .team-grid { grid-template-columns: repeat(2, 1fr); }
     .apply-layout { grid-template-columns: 1fr; gap: 40px; }
-    .footer-content { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-content { grid-template-columns: 1fr; gap: 32px; }
+    .footer-links { grid-template-columns: repeat(4, 1fr); }
 }
 
 /* ============================================
@@ -2012,6 +2019,7 @@ body {
 
     .footer { padding: 40px 0 24px; }
     .footer-content { grid-template-columns: 1fr; gap: 28px; margin-bottom: 32px; }
+    .footer-links { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
     .footer-bottom {
         flex-direction: column;
