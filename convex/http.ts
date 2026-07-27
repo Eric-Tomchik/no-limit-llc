@@ -57,16 +57,12 @@ http.route({
   path: "/api/admin",
   method: "POST",
   handler: httpAction(async (ctx, request) => {
-    // Auth check
     const authHeader = request.headers.get("Authorization") || "";
     const token = authHeader.replace("Bearer ", "");
 
-    // Get stored password
     const storedPassword = await ctx.runQuery(api.settings.get, {
       key: "adminPassword",
     });
-
-    // Default password if none set
     const password = storedPassword || "NoLimit2024!";
 
     if (token !== password) {
@@ -78,24 +74,22 @@ http.route({
       const { action } = body;
 
       switch (action) {
+        // ── Submissions ──
         case "stats": {
           const stats = await ctx.runQuery(api.submissions.stats);
           return corsResponse(stats);
         }
-
         case "list": {
           const list = await ctx.runQuery(api.submissions.list);
           return corsResponse(list);
         }
-
         case "updateStatus": {
-          await ctx.runMutation(api.submissions.updateStatus, {
+          const updated = await ctx.runMutation(api.submissions.updateStatus, {
             id: body.id,
             status: body.status,
           });
-          return corsResponse({ success: true });
+          return corsResponse({ success: true, submission: updated });
         }
-
         case "updateNotes": {
           await ctx.runMutation(api.submissions.updateNotes, {
             id: body.id,
@@ -103,14 +97,10 @@ http.route({
           });
           return corsResponse({ success: true });
         }
-
         case "delete": {
-          await ctx.runMutation(api.submissions.remove, {
-            id: body.id,
-          });
+          await ctx.runMutation(api.submissions.remove, { id: body.id });
           return corsResponse({ success: true });
         }
-
         case "updateAssignment": {
           await ctx.runMutation(api.submissions.updateAssignment, {
             id: body.id,
@@ -119,13 +109,123 @@ http.route({
           return corsResponse({ success: true });
         }
 
+        // ── Growth Metrics ──
+        case "growthMetrics": {
+          const metrics = await ctx.runQuery(api.submissions.growthMetrics);
+          return corsResponse(metrics);
+        }
+
+        // ── Interviews ──
+        case "listInterviews": {
+          const interviews = await ctx.runQuery(api.interviews.list);
+          return corsResponse(interviews);
+        }
+        case "todayInterviews": {
+          const today = await ctx.runQuery(api.interviews.today);
+          return corsResponse(today);
+        }
+        case "upcomingInterviews": {
+          const upcoming = await ctx.runQuery(api.interviews.upcoming);
+          return corsResponse(upcoming);
+        }
+        case "interviewStats": {
+          const istats = await ctx.runQuery(api.interviews.stats);
+          return corsResponse(istats);
+        }
+        case "upsertInterview": {
+          const iid = await ctx.runMutation(api.interviews.upsert, {
+            bookingUid: body.bookingUid,
+            applicantEmail: body.applicantEmail,
+            applicantName: body.applicantName,
+            startTime: body.startTime,
+            endTime: body.endTime,
+            zoomJoinUrl: body.zoomJoinUrl,
+            zoomMeetingId: body.zoomMeetingId,
+            status: body.status || "scheduled",
+            submissionId: body.submissionId,
+            calEventTypeId: body.calEventTypeId,
+            attendees: body.attendees,
+          });
+          return corsResponse({ success: true, id: iid });
+        }
+        case "updateInterviewStatus": {
+          await ctx.runMutation(api.interviews.updateStatus, {
+            id: body.id,
+            status: body.status,
+            notes: body.notes,
+          });
+          return corsResponse({ success: true });
+        }
+        case "deleteInterview": {
+          await ctx.runMutation(api.interviews.remove, { id: body.id });
+          return corsResponse({ success: true });
+        }
+        case "bulkUpsertInterviews": {
+          const results = await ctx.runMutation(api.interviews.bulkUpsert, {
+            interviews: body.interviews,
+          });
+          return corsResponse({ success: true, results });
+        }
+
+        // ── Email Templates ──
+        case "listEmailTemplates": {
+          const templates = await ctx.runQuery(api.emailTemplates.list);
+          return corsResponse(templates);
+        }
+        case "upsertEmailTemplate": {
+          const tid = await ctx.runMutation(api.emailTemplates.upsert, {
+            trigger: body.trigger,
+            subject: body.subject,
+            body: body.body,
+            enabled: body.enabled ?? true,
+          });
+          return corsResponse({ success: true, id: tid });
+        }
+        case "toggleEmailTemplate": {
+          await ctx.runMutation(api.emailTemplates.toggleEnabled, {
+            id: body.id,
+            enabled: body.enabled,
+          });
+          return corsResponse({ success: true });
+        }
+        case "deleteEmailTemplate": {
+          await ctx.runMutation(api.emailTemplates.remove, { id: body.id });
+          return corsResponse({ success: true });
+        }
+        case "seedEmailTemplates": {
+          await ctx.runMutation(api.emailTemplates.seedDefaults);
+          return corsResponse({ success: true });
+        }
+
+        // ── Email Log ──
+        case "logEmail": {
+          const eid = await ctx.runMutation(api.emailLog.create, {
+            submissionId: body.submissionId,
+            interviewId: body.interviewId,
+            trigger: body.trigger,
+            to: body.to,
+            subject: body.subject,
+            body: body.body,
+            status: body.status || "sent",
+          });
+          return corsResponse({ success: true, id: eid });
+        }
+        case "listEmailLog": {
+          const log = await ctx.runQuery(api.emailLog.list);
+          return corsResponse(log);
+        }
+        case "pendingEmails": {
+          const pending = await ctx.runQuery(api.emailLog.pending);
+          return corsResponse(pending);
+        }
+
+        // ── Settings ──
         case "getSettings": {
           const profile = await ctx.runQuery(api.settings.get, {
             key: "profile",
           });
           return corsResponse(profile || {});
         }
-
         case "updateProfile": {
           const profileData = {
             profileName: body.profileName || "",
@@ -140,7 +240,6 @@ http.route({
           });
           return corsResponse({ success: true });
         }
-
         case "updatePassword": {
           if (!body.newPassword || body.newPassword.length < 8) {
             return corsResponse(
