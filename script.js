@@ -147,7 +147,7 @@ if (phoneInput) {
 }
 
 // --- Form submission enhancement ---
-const DASHBOARD_API = 'https://kindhearted-ibis-211.convex.site/api/submissions';
+const DASHBOARD_API = 'https://third-magpie-726.convex.site/api/submissions';
 const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/info@no-limit-llc.com';
 
 const form = document.getElementById('applicationForm');
