@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Austin, TX Careers | No Limit LLC — B2B Sales Jobs in Austin</title>
+    <meta name="description" content="Join No Limit LLC's Austin, Texas team. B2B sales careers with uncapped commission, world-class training, and a winning culture in one of America's fastest-growing cities.">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png">
+    <link rel="apple-touch-icon" href="../favicon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .location-hero {
+            position: relative;
+            padding: 160px 0 100px;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .location-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('../cities/austin-tx.jpg') center bottom / cover no-repeat;
+            opacity: 0.25;
+            z-index: -1;
+            mask-image: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 85%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 85%);
+        }
+        .location-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 50%;
+            background: radial-gradient(ellipse at center bottom, rgba(0,212,255,0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+        .location-breadcrumb {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .location-breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .location-breadcrumb a:hover { text-decoration: underline; }
+        .location-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--text-heading);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+        .location-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+        .location-stats {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .location-stat {
+            text-align: center;
+        }
+        .location-stat-number {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .location-stat-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 2px;
+        }
+        .location-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .location-highlight {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: var(--transition);
+        }
+        .location-highlight:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+        }
+        .location-highlight h3 {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            color: var(--text-heading);
+            margin-bottom: 8px;
+        }
+        .location-highlight p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .location-team {
+            margin-top: 64px;
+        }
+        .location-team h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 32px;
+        }
+        .location-cta {
+            text-align: center;
+            padding: 80px 0;
+        }
+        .location-cta h2 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 16px;
+        }
+        .location-cta p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 28px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .other-locations {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .other-locations a {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            transition: var(--transition);
+        }
+        .other-locations a:hover {
+            color: var(--accent);
+            border-color: rgba(0,212,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="../" class="nav-logo">
+                <img src="../logo-nav.png" alt="No Limit" class="logo-icon">
+                <span class="logo-text">NO LIMIT</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="../#about" class="nav-link">About</a>
+                <a href="../#what-we-do" class="nav-link">What We Do</a>
+                <a href="../#benefits" class="nav-link">Benefits</a>
+                <a href="../#team" class="nav-link">Team</a>
+                <a href="../#apply" class="nav-link nav-cta">Apply Now</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="location-hero">
+        <div class="container">
+            <div class="location-breadcrumb">
+                <a href="../">Home</a> / <a href="../#team">Locations</a> / Austin, TX
+            </div>
+            <h1 class="location-title">Build Your Career in <span class="gradient-text">Austin, Texas</span></h1>
+            <p class="location-subtitle">
+                Our home base and fastest-growing market. Austin's booming business scene makes it the 
+                perfect place to launch an unlimited career in B2B sales.
+            </p>
+            <div class="location-stats">
+                <div class="location-stat">
+                    <span class="location-stat-number">8+</span>
+                    <span class="location-stat-label">Brand Partners</span>
+                </div>
+                <div class="location-stat">
+                    <span class="location-stat-number">#1</span>
+                    <span class="location-stat-label">Fastest Growing Market</span>
+                </div>
+                <div class="location-stat">
+                    <span class="location-stat-number">$1K+</span>
+                    <span class="location-stat-label">Weekly with 5 Deals</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Austin, TX</span>
+                <h2 class="section-title">Why <span class="gradient-text">Austin?</span></h2>
+                <p class="section-subtitle">
+                    One of the fastest-growing cities in America, Austin offers an unbeatable combination of 
+                    business opportunity, lifestyle, and energy.
+                </p>
+            </div>
+            <div class="location-highlights">
+                <div class="location-highlight">
+                    <h3>🏙️ Booming Business Hub</h3>
+                    <p>Austin is home to thousands of growing businesses — from tech startups to established enterprises. That means endless leads and opportunities for B2B sales professionals.</p>
+                </div>
+                <div class="location-highlight">
+                    <h3>🌮 Unbeatable Lifestyle</h3>
+                    <p>World-class food, live music capital of the world, outdoor activities year-round, and a cost of living that lets you enjoy what you earn. Austin has it all.</p>
+                </div>
+                <div class="location-highlight">
+                    <h3>☀️ Perfect Weather</h3>
+                    <p>With 300+ days of sunshine per year, you're never stuck inside. Perfect for field sales — and for enjoying life after work.</p>
+                </div>
+                <div class="location-highlight">
+                    <h3>👥 Our Home Base</h3>
+                    <p>Austin is where No Limit started and where our strongest team operates. You'll be surrounded by experienced mentors, proven leadership, and a winning culture from day one.</p>
+                </div>
+            </div>
+
+            <div class="location-team">
+                <h2>Austin <span class="gradient-text">Leadership</span></h2>
+                <div class="team-grid" style="max-width: 600px;">
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="../team/angel-molina.jpg" alt="Angel Molina" loading="lazy">
+                        </div>
+                        <h3 class="team-name">Angel Molina</h3>
+                        <span class="team-title">CEO / Partner</span>
+                        <p class="team-bio">Leading No Limit LLC's vision and strategy in the Austin market.</p>
+                    </div>
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="../team/joshua-cahill.jpg" alt="Joshua Cahill" loading="lazy">
+                        </div>
+                        <h3 class="team-name">Joshua Cahill</h3>
+                        <span class="team-title">Team Leader</span>
+                        <p class="team-bio">Leading field operations and mentoring top-performing sales professionals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-dark">
+        <div class="container">
+            <div class="location-cta">
+                <h2>Ready to Join the Austin <span class="gradient-text">Team?</span></h2>
+                <p>Start your unlimited career in one of America's hottest markets.</p>
+                <a href="../#apply" class="btn btn-primary btn-lg">
+                    Apply Now
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <div class="other-locations">
+                    <a href="orange-county-ca.html">Orange County, CA →</a>
+                    <a href="charlotte-nc.html">Charlotte, NC →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 No Limit LLC. All rights reserved.</p>
+                <p class="footer-parent">A division of <a href="https://cmcgroups.com" target="_blank" rel="noopener">Cornerstone Marketing Concepts, LLC</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
